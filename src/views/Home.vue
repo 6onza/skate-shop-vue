@@ -6,7 +6,7 @@
 <div class="container envios-info">
 	<!-- entregas -->
 	<div class="row mt-5 mb-5 d-flex justify-content-center">
-		<div class="col-12 col-md-3  d-flex m-4 " style="border-right: 1px solid #b2b2b2;">
+		<div class="col-12 col-md-3  d-flex m-4 ps-5 ps-md-0" style="border-right: 1px solid #b2b2b2;">
 			<img  src="../assets/icons/credit-card.svg" alt="" style="width: 40px; height: 40px; object-fit: cover; object-position: center;">
 			<div class="ms-3 " >
 				<h5 class="m-0" style="font-family: 'Arial', sans-serif;"> Pagá como quieras
@@ -15,7 +15,7 @@
 					
 			</div>
 		</div>
-		<div class="col-12 col-md-3  d-flex m-4 " style="border-right: 1px solid #b2b2b2;">
+		<div class="col-12 col-md-3  d-flex m-4 ps-5 ps-md-0" style="border-right: 1px solid #b2b2b2;">
 			<img  src="../assets/icons/lock.svg" alt="" style="width: 40px; height: 40px; object-fit: cover; object-position: center;">
 			<div class="ms-3 " >
 				<h5 class="m-0" style="font-family: 'Arial', sans-serif;">Comprá con seguridad</h5>
@@ -24,7 +24,7 @@
 				</p>
 			</div>
 		</div>
-		<div class="col-12 col-md-3  d-flex m-4 ">
+		<div class="col-12 col-md-3  d-flex m-4 ps-5 ps-md-0">
 			<img  src="../assets/icons/truck.svg" alt="" style="width: 40px; height: 40px; object-fit: cover; object-position: center;">
 			<div class="ms-3 " >
 				<h5 class="m-0" style="font-family: 'Arial', sans-serif;">
