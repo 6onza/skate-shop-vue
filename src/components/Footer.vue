@@ -99,7 +99,7 @@
               <a href="#!">
                 <i
                   class="fab fa-facebook-square"
-                  style="font-size: 2.5rem; color: #fff"
+                  style="font-size: 2rem; color: #fff"
                 ></i>
               </a>
             </li>
@@ -107,7 +107,7 @@
               <a href="#!">
                 <i
                   class="fab fa-instagram-square"
-                  style="font-size: 2.5rem; color: #fff"
+                  style="font-size: 2rem; color: #fff"
                 ></i>
               </a>
             </li>
@@ -115,7 +115,7 @@
               <a href="#!">
                 <i
                   class="fab fa-twitter-square"
-                  style="font-size: 2.5rem; color: #fff"
+                  style="font-size: 2rem; color: #fff"
                 ></i>
               </a>
             </li>
@@ -123,7 +123,7 @@
               <a href="#!">
                 <i
                   class="fab fa-whatsapp-square"
-                  style="font-size: 2.5rem; color: #fff"
+                  style="font-size: 2rem; color: #fff"
                 ></i>
               </a>
             </li>
@@ -149,9 +149,9 @@
             </div>
           </form>
         </div>
-        <div class="col-md-3 mb-md-0 mb-3 text-start ps-md-5">
-          <ul class="list-unstyled" style="font-size: 0.9rem; color: #fff">
-            <li>
+        <div class="col-md-2 mb-md-0 mb-3 text-start ps-md-5 w-md-100">
+          <ul class="list-unstyled row d-flex" style="font-size: 0.9rem; color: #fff">
+            <li class="col-6 col-md-12 mt-md-0 mt-3">
               <a
                 href="#!"
                 class="text-white text-decoration-none"
@@ -160,7 +160,7 @@
                 Política de privacidad
               </a>
             </li>
-            <li class="mt-3">
+            <li class="mt-3 col-6 col-md-12">
               <a
                 href="#!"
                 class="text-white text-decoration-none"
@@ -169,7 +169,7 @@
                 Términos y condiciones
               </a>
             </li>
-            <li class="mt-3">
+            <li class="mt-3 col-6 col-md-12">
               <a
                 href="#!"
                 class="text-white text-decoration-none"
@@ -178,7 +178,7 @@
                 Política de devoluciones
               </a>
             </li>
-            <li class="mt-3">
+            <li class="mt-3 col-6 col-md-12">
               <a
                 href="#!"
                 class="text-white text-decoration-none"
@@ -201,9 +201,14 @@ export default {
 </script>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap");
-.text-uppercase {
-  font-family: "Roboto Condensed", sans-serif;
-  font-size: 1.1rem;
-}
+  @import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap");
+  .text-uppercase {
+    font-family: "Roboto Condensed", sans-serif;
+    font-size: 1rem;
+  }
+  @media (max-width: 768px) {
+    li a{
+    font-size: 0.7rem;
+  }
+  }
 </style>
