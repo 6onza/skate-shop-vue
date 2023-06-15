@@ -5,24 +5,21 @@
     <div
       class="row container-fluid d-flex flex-column w-100 justify-content-center ps-0 pe-0"
     >
-      <!-- <div class="envio-gratis p-0 text-white d-flex align-items-center">
-			<p class="text-center " style="font-size: 1rem; letter-spacing: 1px;">
-				¡Envío gratis para compras que superen los $15.000! / Hasta 6 cuotas sin interés con todas las tarjetas / 10% de descuento en efectivo
-			</p>
-		</div> -->
       <div class="col-12 col-md-12 row d-flex justify-content-between p-0 mb-0">
         <div
           class="col-12 col-md-6 p-0 text-center text-md-start logo"
           :class="{ 'scrolled-nav': isScrolled }"
         >
           <div>
-            <img
-              src="../assets/logo.png"
-              class="logo"
-              alt="logo"
-              width="100"
-              :class="{ 'scrolled-logo': isScrolled }"
-            />
+            <a href="/">
+              <img
+                src="../assets/logo.png"
+                class="logo"
+                alt="logo"
+                width="120"
+                :class="{ 'scrolled-logo': isScrolled }"
+              />
+            </a>
           </div>
         </div>
         <div
@@ -48,22 +45,26 @@
                 <img
                   src="../assets/icons/search.svg"
                   alt="search icon"
-                  width="20"
-                  height="20"
+                  width="15"
+                  height="15"
                 />
               </button>
             </div>
           </div>
 
-          <a href="/cart" class="text-decoration-none text-dark ms-2">
+          <button
+            @click="showOrHideCart()"
+            class="text-dark ms-2"
+            style="background-color: transparent; border: none"
+          >
             <img
               src="../assets/icons/bag.svg"
               alt="logo"
-              width="30"
-              height="30"
+              width="25"
+              height="25"
             />
-            <span class="pt-2" id="cartCount"> (0) </span>
-          </a>
+            <span class="pt-2" id="cartCount">({{ cartCount }})</span>
+          </button>
         </div>
       </div>
 
@@ -86,14 +87,55 @@
             style="background-color: #000; color: #fff"
           >
             <li class="nav-item">
-              <a class="nav-link" href="#" style="border-bottom: 3px solid #fff"
+              <a class="nav-link" href="/" style="border-bottom: 3px solid #fff"
                 >inicio</a
               >
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">productos</a>
+            <!-- products dropdown -->
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdownMenuLink"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                productos
+              </a>
+              <ul
+                class="dropdown-menu"
+                aria-labelledby="navbarDropdownMenuLink"
+              >
+                <li>
+                  <a class="dropdown-item" href="/products/indumentaria">
+                    indumentaria
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/products/tablas"> tablas </a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/products/ruedas"> ruedas </a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/products/trucks"> trucks </a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/products/rulemanes">
+                    rulemanes
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/products/accesorios">
+                    accesorios
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/products"> ver todos </a>
+                </li>
+              </ul>
             </li>
-
             <li class="nav-item">
               <a class="nav-link" href="#">contacto</a>
             </li>
@@ -102,15 +144,166 @@
       </div>
     </div>
   </nav>
+  <div class="cart-container" v-if="showCart">
+    <div class="container d-flex cart-items row justify-content-center">
+      <div class="d-flex row pt-3 px-0 justify-content-center">
+        <div class="col-6 px-0">
+          <h5
+            class="text-center pt-2"
+            style="
+              font-family: Arial, Helvetica, sans-serif;
+              font-size: 0.85rem;
+            "
+          >
+            MI CARRITO ({{ cartCount }})
+          </h5>
+        </div>
+        <div class="col-6 text-end px-0">
+          <!-- cruz -->
+          <button
+            type="button"
+            class="btn-close"
+            aria-label="Close"
+            @click="showOrHideCart()"
+          ></button>
+        </div>
+      </div>
+      <p
+        v-if="cartCount == 0"
+        class="text-center pt-2"
+        style="font-family: Arial, Helvetica, sans-serif; font-size: 1rem"
+      >
+        <span
+          class="text-center pt-2"
+          style="font-family: Arial, Helvetica, sans-serif; font-size: 0.85rem"
+        >
+          No hay productos en el carrito
+        </span>
+      </p>
+      <AppProductOnCart
+        v-for="product in productsOnCart"
+        :key="product.id"
+        :product="product"
+        @update-cart="updateCart"
+      />
+      <div
+        class="d-flex row py-3 px-0 justify-content-center"
+        v-if="cartCount > 0"
+      >
+        <div class="col-12 col-md-6 ps-3">
+          <h5
+            class="text-center pt-2 ps-4"
+            style="font-family: Arial, Helvetica, sans-serif; font-size: 1rem"
+          >
+            TOTAL
+          </h5>
+        </div>
+        <div class="col-12 col-md-6 text-end">
+          <!-- cruz -->
+          <h5
+            class="text-center pt-2"
+            style="font-family: Arial, Helvetica, sans-serif; font-size: 1rem"
+          >
+            ${{ total }}
+          </h5>
+        </div>
+        <div class="col-12 col-md-12 text-center pe-2">
+          <button
+            type="button"
+            class="btn btn-dark text-center"
+            style="border-radius: 0"
+          >
+            <a href="/checkout" class="text-decoration-none text-white">
+              FINALIZAR COMPRA
+            </a>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
+import AppProductOnCart from "./ProductOnCart.vue";
+
 export default {
   name: "AppNavbar",
+  components: {
+    AppProductOnCart,
+  },
+  props: {
+    cartCount: {
+      type: Number,
+      required: true,
+    },
+    productsOnCart: {
+      type: Array,
+      required: true,
+    },
+  },
   data() {
     return {
-      cartCount: 0,
       isScrolled: false,
+      total: 0,
+      showCart: false,
+      products: [
+        {
+          id: 1,
+          name: "Campera DC Shoes",
+          price: "$18.999",
+          image: "dc-shoes-jacket.png",
+          sizes: ["XL", "L"],
+        },
+        {
+          id: 2,
+          name: "Skate completo Element ",
+          price: "$22.000",
+          image: "skate-complete.png",
+          sizes: [],
+        },
+        {
+          id: 3,
+          name: "Tabla Flip thunder",
+          price: "$9.200",
+          image: "board-flip-1.png",
+          sizes: ["7.5"],
+        },
+        {
+          id: 4,
+          name: "Buzo Nike SB algodon",
+          price: "$18.400",
+          image: "nike-hoodie.png",
+          sizes: ["L", "S"],
+        },
+        {
+          id: 5,
+          name: "Trucks Element Nightmare",
+          price: "$7.200",
+          image: "trucks-element-1.png",
+          sizes: [],
+        },
+        {
+          id: 6,
+          name: "Buzo Thrasher Holy flowers",
+          price: "$16.500",
+          image: "thrasher-hoodie.png",
+          sizes: ["XL", "S"],
+        },
+        {
+          id: 7,
+          name: "Rulemanes Element",
+          price: "$3.300",
+          image: "bearings-element-1.png",
+          sizes: [],
+        },
+        {
+          id: 8,
+          name: "Tabla Flip Sexo",
+          price: "$10.200",
+          image: "board-flip-2.png",
+          sizes: ["8.5"],
+        },
+      ],
     };
   },
   mounted() {
@@ -123,11 +316,62 @@ export default {
     handleScroll() {
       this.isScrolled = window.scrollY > 0;
     },
+
+    updateCart() {
+      this.$emit("updateCart");
+    },
+    showOrHideCart() {
+      this.showCart = !this.showCart;
+    },
+    calculateTotal() {
+      let total = 0;
+      for (let i = 0; i < this.productsOnCart.length; i++) {
+        total += parseInt(
+          this.productsOnCart[i].price.replace("$", "").replace(".", "")
+        );
+      }
+      this.total = total;
+    },
   },
 };
 </script>
 
 <style scoped>
+.cart-container {
+  width: 100vw;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  position: fixed;
+}
+.cart-items {
+  position: fixed;
+  right: 0;
+  width: 300px;
+  background-color: #ffffff;
+  z-index: 9999;
+  top: 0;
+  height: 100vh;
+  overflow: auto;
+  animation: slideFromRight 0.5s;
+}
+
+@keyframes slideFromRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+.row {
+  margin: 0;
+}
 .envio-gratis {
   height: 2.5em;
   background-color: #000000;
@@ -234,5 +478,9 @@ export default {
     top: 0em;
     transition: 0.5s;
   }
+  .cart-items{
+	width: 100%;
+  }
+
 }
 </style>
