@@ -1,19 +1,34 @@
 <template>
-  <div class="product col-md-3 col-6 mt-5 text-center">
+  <div class="product col-md-3 col-6 mt-5 text-center px-1">
     <div class="d-flex justify-content-center flex-column">
-      <div class="product-img-container">
-        <img :src="getImgUrl()" />
-      </div>
-      <div class="product-info-container">
-        <h3>{{ product.name }}</h3>
-        <p>{{ product.price }}</p>
-        <button @click="addToCart">añadir al carrito</button>
+      <div class="product-info-container px-0">
+        <a href="#" class="text-decoration-none" style="color: #000000">
+          <div class="product-img-container">
+            <img :src="getImgUrl()" />
+          </div>
+          <h3 class="mb-1">{{ product.name }}</h3>
+          <p class="mb-0">{{ product.price }}</p>
+        </a>
+        <!-- sizes options -->
+        <div class="d-flex justify-content-center align-items-center  products-sizes" style="height: 40px">
+          <button v-for="(size, index) in product.sizes" :key="index" class="py-0 ms-2 text-decoration-none product-size"
+            :class="{ 'product-size-selected': index === selectedSizeIndex }"
+            style="font-size: .8rem; border-radius: 0;"
+            @click="selectSize(index)">
+            {{ size }}
+          </button>
+        </div>
+
+        <button @click="addToCart" class="btn-agregar">
+          añadir al carrito</button>
       </div>
     </div>
   </div>
 </template>
 
+
 <script>
+
 export default {
   name: "AppProduct",
   props: {
@@ -22,13 +37,46 @@ export default {
       required: true,
     },
   },
+  
+  data() {
+    return {
+      selectedSizeIndex: 0,
+    };
+  },
+
   methods: {
-    addToCart() {
-      // Aquí puedes implementar la lógica para agregar el producto al carrito
-    },
     getImgUrl() {
       return require(`../assets/img/products/${this.product.image}`);
     },
+    selectSize(index) {
+      this.selectedSizeIndex = index; // Actualizar el índice del tamaño seleccionado
+    },
+    addToCart() {
+      // guardo el producto en el carrito, que es una cookie que se guarda en el navegador
+      // para guardar el producto en el carrito, necesito el id del producto y el tamaño seleccionado
+      // el id del producto lo obtengo de la prop product
+      // el tamaño seleccionado lo obtengo del data selectedSizeIndex
+      
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      // si el id del producto y el tamaño seleccionado ya están en el carrito, no lo agrego
+      const productInCart = cart.find(
+        (p) =>
+          p.id === this.product.id &&
+          p.size === this.product.sizes[this.selectedSizeIndex]
+      );
+      if (productInCart) {
+        alert("El producto ya está en el carrito");
+        return;
+      }
+      const product = {
+        id: this.product.id,
+        size: this.product.sizes[this.selectedSizeIndex],
+      };
+      cart.push(product);
+      localStorage.setItem("cart", JSON.stringify(cart)); 
+      this.$emit('addToCart')
+    },
+    
   },
 };
 </script>
@@ -39,15 +87,14 @@ export default {
   margin-bottom: 20px;
 }
 .product-img-container {
-  width: 300px;
-  height: 300px;
+  width: 200px;
+  height: 200px;
   margin: 0 auto;
   overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-
 .product img {
   height: 100%;
   width: 100%;
@@ -63,25 +110,34 @@ export default {
   font-size: 1rem;
 }
 
-.product p {
-  margin-bottom: 10px;
-}
 .product-info-container {
   padding: 0 20px;
 }
-.product button {
+.product-size {
+  background-color: #ffffff;
+  color: #000000;
+  border: 1px solid #969696;
+}
+.product-size-selected {
+  background-color: #000000;
+  color: #ffffff;
+}
+.product .btn-agregar {
   background-color: #000000;
   color: #ffffff;
   border: 1px solid #000000;
   padding: 5px 0px 5px 0px;
   cursor: pointer;
-  width: 80%;
+  width: 80%; 
 }
-.product button:hover {
+
+.product .btn-agregar:hover {
   background-color: #ffffff;
   color: #000000;
   transition: 0.2s;
 }
+
+
 @media (max-width: 768px) {
   .product {
     margin-bottom: 40px;
@@ -93,7 +149,7 @@ export default {
   .product h3 {
     font-size: 0.8rem;
   }
-  .product button {
+  .product .btn-agregar {
     width: 100%;
     font-size: 0.8rem; 
   }
