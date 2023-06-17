@@ -240,70 +240,16 @@ export default {
       type: Array,
       required: true,
     },
+    products: {
+      type: Array,
+      required: true,
+    },
   },
   data() {
     return {
       isScrolled: false,
       total: 0,
       showCart: false,
-      products: [
-        {
-          id: 1,
-          name: "Campera DC Shoes",
-          price: "$18.999",
-          image: "dc-shoes-jacket.png",
-          sizes: ["XL", "L"],
-        },
-        {
-          id: 2,
-          name: "Skate completo Element ",
-          price: "$22.000",
-          image: "skate-complete.png",
-          sizes: [],
-        },
-        {
-          id: 3,
-          name: "Tabla Flip thunder",
-          price: "$9.200",
-          image: "board-flip-1.png",
-          sizes: ["7.5"],
-        },
-        {
-          id: 4,
-          name: "Buzo Nike SB algodon",
-          price: "$18.400",
-          image: "nike-hoodie.png",
-          sizes: ["L", "S"],
-        },
-        {
-          id: 5,
-          name: "Trucks Element Nightmare",
-          price: "$7.200",
-          image: "trucks-element-1.png",
-          sizes: [],
-        },
-        {
-          id: 6,
-          name: "Buzo Thrasher Holy flowers",
-          price: "$16.500",
-          image: "thrasher-hoodie.png",
-          sizes: ["XL", "S"],
-        },
-        {
-          id: 7,
-          name: "Rulemanes Element",
-          price: "$3.300",
-          image: "bearings-element-1.png",
-          sizes: [],
-        },
-        {
-          id: 8,
-          name: "Tabla Flip Sexo",
-          price: "$10.200",
-          image: "board-flip-2.png",
-          sizes: ["8.5"],
-        },
-      ],
     };
   },
   mounted() {

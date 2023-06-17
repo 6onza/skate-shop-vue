@@ -3,6 +3,7 @@
     :cartCount="cartCount"
     :productsOnCart="productsOnCart"
     @updateCart="updateCart"
+    :products="products"
   />
   <div
     class="container-fluid p-0"
@@ -115,7 +116,7 @@
             height="250"
           />
         </div>
-        <button class="basic-button">ofertas de invierno</button>
+        <button class="basic-button">productos en oferta</button>
       </div>
       <div
         class="oferta d-flex container justify-content-center flex-column align-items-center col-12 col-md-4 mt-5"
@@ -128,7 +129,8 @@
             height="250"
           />
         </div>
-        <button class="basic-button">herramientas</button>
+        <button class="basic-button">accesorios
+        </button>
       </div>
     </div>
   </div>
@@ -239,9 +241,13 @@
       />
     </div>
     <div class="container d-flex justify-content-center mt-3">
-      <a class="basic-button-white mt-5 text-decoration-none" href="/products">
-        ver mas productos</a
+      <a
+        class="basic-button text-decoration-none mt-5 mb-5"
+        style="font-size: 1rem; padding: 0.5rem 1rem"
+        href="/products"
       >
+        ver todos <i class="fas fa-arrow-right"></i>
+      </a>
     </div>
   </div>
   <div class="container mt-5 youtube-video">
@@ -346,12 +352,14 @@
 </template>
 
 <script>
+import { cartMixin, productMixin } from "../mixin.js";
 import AppNavbar from "../components/Navbar.vue";
 import AppProduct from "../components/Product.vue";
 import AppFooter from "../components/Footer.vue";
 
 export default {
   name: "AppHome",
+  mixins: [cartMixin, productMixin],
   components: {
     AppNavbar,
     AppProduct,
@@ -359,95 +367,20 @@ export default {
   },
   data() {
     return {
-      products: [
-        {
-          id: 1,
-          name: "Campera DC Shoes",
-          price: "$18.999",
-          image: "dc-shoes-jacket.png",
-          sizes: ["XL", "L"],
-        },
-        {
-          id: 2,
-          name: "Skate completo Element ",
-          price: "$22.000",
-          image: "skate-complete.png",
-          sizes: [],
-        },
-        {
-          id: 3,
-          name: "Tabla Flip thunder",
-          price: "$9.200",
-          image: "board-flip-1.png",
-          sizes: ["7.5"],
-        },
-        {
-          id: 4,
-          name: "Buzo Nike SB algodon",
-          price: "$18.400",
-          image: "nike-hoodie.png",
-          sizes: ["L", "S"],
-        },
-        {
-          id: 5,
-          name: "Trucks Element Nightmare",
-          price: "$7.200",
-          image: "trucks-element-1.png",
-          sizes: [],
-        },
-        {
-          id: 6,
-          name: "Buzo Thrasher Holy flowers",
-          price: "$16.500",
-          image: "thrasher-hoodie.png",
-          sizes: ["XL", "S"],
-        },
-        {
-          id: 7,
-          name: "Rulemanes Element",
-          price: "$3.300",
-          image: "bearings-element-1.png",
-          sizes: [],
-        },
-        {
-          id: 8,
-          name: "Tabla Flip Sexo",
-          price: "$10.200",
-          image: "board-flip-2.png",
-          sizes: ["8.5"],
-        },
-      ],
       cartCount: 0,
       productsOnCart: [],
     };
   },
   mounted() {
     this.updateCart();
+    this.fetchProducts('products');
   },
   methods: {
-
-	// TODO: refactorizar para usar la funcion en el view products
-    getProductsOnCart() {
-      const productsOnCart = JSON.parse(localStorage.getItem("cart")) || [];
-      // recorro el array de productos y creo un nuevo objeto con la infomracion del producto y el size y lo guardo en productsOnCart
-      for (let i = 0; i < productsOnCart.length; i++) {
-        const product = productsOnCart[i];
-        const productInfo = this.products.find((p) => p.id === product.id);
-        productsOnCart[i] = {
-          ...productInfo,
-          size: product.size,
-        };
-      }
-      this.productsOnCart = productsOnCart;
-    },
-    updateCart() {
-      const cartCount = JSON.parse(localStorage.getItem("cart"))?.length;
-      this.cartCount = cartCount || 0;
-      this.getProductsOnCart();
-    },
+    // Resto de los métodos...
   },
 };
 </script>
+
 
 <style>
 .carousel-item img {
