@@ -46,7 +46,7 @@ export default {
   font-family: 'Space Mono', monospace;
 }
 body {
-  background-color: #f6f4f4;
+  background-color: #ffffff;
 }
 .cookies-aviso{
 	background-color: #161616;

@@ -4,14 +4,14 @@
       <div class="product-info-container px-0">
         <a href="#" class="text-decoration-none" style="color: #000000">
           <div class="product-img-container">
-            <img :src="getImgUrl()" />
+            <img :src="'https://res.cloudinary.com/dlweonm9e/' + product.image_1" alt="product image"  />
           </div>
           <h3 class="mb-1">{{ product.name }}</h3>
-          <p class="mb-0">{{ product.price }}</p>
+          <p class="mb-0">${{ parseInt(product.price) }}</p>
         </a>
         <!-- sizes options -->
         <div class="d-flex justify-content-center align-items-center  products-sizes" style="height: 40px">
-          <button v-for="(size, index) in product.sizes" :key="index" class="py-0 ms-2 text-decoration-none product-size"
+          <button v-for="(size, index) in product.size" :key="index" class="py-0 ms-2 text-decoration-none product-size"
             :class="{ 'product-size-selected': index === selectedSizeIndex }"
             style="font-size: .8rem; border-radius: 0;"
             @click="selectSize(index)">
@@ -45,9 +45,7 @@ export default {
   },
 
   methods: {
-    getImgUrl() {
-      return require(`../assets/img/products/${this.product.image}`);
-    },
+    
     selectSize(index) {
       this.selectedSizeIndex = index; // Actualizar el índice del tamaño seleccionado
     },
@@ -62,7 +60,7 @@ export default {
       const productInCart = cart.find(
         (p) =>
           p.id === this.product.id &&
-          p.size === this.product.sizes[this.selectedSizeIndex]
+          p.size === this.product.size[this.selectedSizeIndex]
       );
       if (productInCart) {
         alert("El producto ya está en el carrito");
@@ -70,7 +68,10 @@ export default {
       }
       const product = {
         id: this.product.id,
-        size: this.product.sizes[this.selectedSizeIndex],
+        name: this.product.name,
+        price: this.product.price,
+        image: this.product.image_1,
+        size: this.product.size[this.selectedSizeIndex],
       };
       cart.push(product);
       localStorage.setItem("cart", JSON.stringify(cart)); 
@@ -88,7 +89,7 @@ export default {
 }
 .product-img-container {
   width: 200px;
-  height: 200px;
+  height: 260px;
   margin: 0 auto;
   overflow: hidden;
   display: flex;
@@ -96,7 +97,7 @@ export default {
   align-items: center;
 }
 .product img {
-  height: 100%;
+  height: auto;
   width: 100%;
 }
 .product img:hover {
@@ -128,7 +129,7 @@ export default {
   border: 1px solid #000000;
   padding: 5px 0px 5px 0px;
   cursor: pointer;
-  width: 80%; 
+  width: 70%; 
 }
 
 .product .btn-agregar:hover {
