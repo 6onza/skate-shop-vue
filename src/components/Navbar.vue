@@ -145,6 +145,8 @@
     </div>
   </nav>
   <div class="cart-container" v-if="showCart">
+    <div @click="showOrHideCart()" class="cart-overlay"></div>
+
     <div class="container d-flex cart-items row justify-content-center">
       <div class="d-flex row pt-3 px-0 justify-content-center">
         <div class="col-6 px-0">
@@ -294,6 +296,13 @@ export default {
   align-items: center;
   height: 100vh;
   position: fixed;
+}
+.cart-overlay {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9998;
 }
 .cart-items {
   position: fixed;
