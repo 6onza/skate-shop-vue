@@ -28,7 +28,7 @@ export const productMixin = {
   methods: {
     fetchProducts() {
       axios
-        .get("http://skate-shop-api.vercel.app/api/products/all/", {
+        .get("https://skate-shop-api.vercel.app/api/products/all/", {
           params: {
             page: this.nextPage,
           },
@@ -50,7 +50,7 @@ export const productMixin = {
     },
     fetchProduct(id) {
       axios
-        .get(`http://skate-shop-api.vercel.app/api/products/${id}/`)
+        .get(`https://skate-shop-api.vercel.app/api/products/${id}/`)
         .then((response) => {
           this.product = response.data.results;
         })
@@ -60,7 +60,7 @@ export const productMixin = {
     },
     fetchCategoryProducts(category) {
       axios
-        .get(`http://skate-shop-api.vercel.app/api/products/category/${category}/`)
+        .get(`https://skate-shop-api.vercel.app/api/products/category/${category}/`)
         .then((response) => {
           this.products = [...this.products, ...response.data.results];
           this.hasMore = response.data.next ? true : false;
