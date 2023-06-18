@@ -2,9 +2,10 @@
   <div class="product col-md-3 col-6 mt-5 text-center px-1">
     <div class="d-flex justify-content-center flex-column">
       <div class="product-info-container px-0">
-        <a href="#" class="text-decoration-none" style="color: #000000">
+        <a href="#" class="text-decoration-none" style="color: #000000" @mouseover="mouseOver = true" @mouseleave="mouseOver = false">
           <div class="product-img-container">
-            <img :src="'https://res.cloudinary.com/dlweonm9e/' + product.image_1" alt="product image"  />
+            <img :src="'https://res.cloudinary.com/dlweonm9e/' + product.image_1" alt="product image"  v-show="!mouseOver" />
+            <img :src="'https://res.cloudinary.com/dlweonm9e/' + product.image_2" alt="product image"  v-show="mouseOver" />
           </div>
           <h3 class="mb-1">{{ product.name }}</h3>
           <p class="mb-0">${{ parseInt(product.price) }}</p>
@@ -41,6 +42,7 @@ export default {
   data() {
     return {
       selectedSizeIndex: 0,
+      mouseOver: false,
     };
   },
 
@@ -70,14 +72,14 @@ export default {
         id: this.product.id,
         name: this.product.name,
         price: this.product.price,
-        image: this.product.image_1,
+        image_1: this.product.image_1,
+        image_2: this.product.image_1,
         size: this.product.size[this.selectedSizeIndex],
       };
       cart.push(product);
       localStorage.setItem("cart", JSON.stringify(cart)); 
       this.$emit('addToCart')
     },
-    
   },
 };
 </script>
@@ -109,6 +111,7 @@ export default {
   margin-top: 10px;
   margin-bottom: 10px;
   font-size: 1rem;
+  height: 35px;
 }
 
 .product-info-container {
