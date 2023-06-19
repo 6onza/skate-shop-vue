@@ -23,63 +23,67 @@
           </div>
         </div>
         <div
-          class="col-12 col-md-6 order-2 order-md-1 align-items-center d-flex justify-content-md-end justify-content-center pb-md-0 p-2 pt-md-2 mt-md-5"
+          class="col-12 col-md-6 order-2 order-md-1 align-items-center d-flex justify-content-md-end justify-content-end pb-md-0 p-2 pt-md-2 mt-md-5"
         >
-          <!-- search -->
-          <div class="d-flex justify-content-end align-items-center me-md-3">
-            <div class="input-group">
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Buscar"
-                aria-label="Recipient's username"
-                aria-describedby="button-addon2"
-                style="border-radius: 0"
-              />
-              <button
-                class="btn btn-outline-secondary"
-                type="button"
-                id="button-addon2"
-                style="border-radius: 0"
-              >
-                <img
-                  src="../assets/icons/search.svg"
-                  alt="search icon"
-                  width="15"
-                  height="15"
-                />
-              </button>
-            </div>
+          <div class="boton-colapse pt-3" style="width: 20%">
+            <button
+              class="navbar-toggler ms-3 mb-3"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarNavDropdown"
+              aria-controls="navbarNavDropdown"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
           </div>
+          <div class="d-flex justify-content-end align-items-center w-100">
+            <!-- search -->
+            <div class="d-flex justify-content-end align-items-center me-md-3">
+              <div class="input-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Buscar"
+                  aria-label="Recipient's username"
+                  aria-describedby="button-addon2"
+                  style="border-radius: 0"
+                />
+                <button
+                  class="btn btn-outline-secondary"
+                  type="button"
+                  id="button-addon2"
+                  style="border-radius: 0"
+                >
+                  <img
+                    src="../assets/icons/search.svg"
+                    alt="search icon"
+                    width="15"
+                    height="15"
+                  />
+                </button>
+              </div>
+            </div>
 
-          <button
-            @click="showOrHideCart()"
-            class="text-dark ms-2"
-            style="background-color: transparent; border: none"
-          >
-            <img
-              src="../assets/icons/bag.svg"
-              alt="logo"
-              width="25"
-              height="25"
-            />
-            <span class="pt-2" id="cartCount">({{ cartCount }})</span>
-          </button>
+            <button
+              @click="showOrHideCart()"
+              class="text-dark ms-2"
+              style="background-color: transparent; border: none"
+            >
+              <img
+                src="../assets/icons/bag.svg"
+                alt="logo"
+                width="25"
+                height="25"
+              />
+              <span class="pt-2" id="cartCount">({{ cartCount }})</span>
+            </button>
+          </div>
         </div>
       </div>
 
       <div class="col-12 col-md-12 p-0 w-100 order-1 order-md-2">
-        <button
-          class="navbar-toggler ms-3 mb-3"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNavDropdown"
-          aria-controls="navbarNavDropdown"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
           <ul
             class="navbar-nav w-100 d-flex justify-content-center ms-auto"
@@ -342,9 +346,8 @@ export default {
 }
 .logo {
   position: relative;
-  top: 0em;
+  top: 0;
   left: 31%;
-  margin-top: 0px;
 }
 .scrolled-logo {
   margin-top: 0px;
@@ -422,20 +425,19 @@ export default {
   .logo {
     position: relative;
     top: 0em;
-    left: 31%;
+    left: 35%;
     width: 80px;
     height: 80px;
   }
   .scrolled-logo {
     margin-top: 0px;
     width: 80px;
-    left: 30%;
+    left: 34%;
     top: 0em;
     transition: 0.5s;
   }
-  .cart-items{
-	width: 100%;
+  .cart-items {
+    width: 100%;
   }
-
 }
 </style>

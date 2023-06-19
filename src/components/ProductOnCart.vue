@@ -53,7 +53,7 @@ export default {
   border-bottom: 1px solid #ccc;
 }
 .cart-item img {
-  width: 100px;
+  width: auto;
   height: 100px;
 }
 .cart-item p {
