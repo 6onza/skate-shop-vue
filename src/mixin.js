@@ -34,6 +34,7 @@ export const productMixin = {
           },
         })
         .then((response) => {
+          this.loading = false;
           const products = response.data.results;
           this.products = [...this.products, ...products];
           this.hasMore = response.data.next ? true : false;
@@ -50,9 +51,9 @@ export const productMixin = {
     },
     fetchProduct(id) {
       axios
-        .get(`https://skate-shop-api.vercel.app/api/products/${id}/`)
+        .get(`https://skate-shop-api.vercel.app/api/products/all/${id}/`)
         .then((response) => {
-          this.product = response.data.results;
+          this.product = response.data
         })
         .catch((error) => {
           console.log(error);
@@ -64,6 +65,7 @@ export const productMixin = {
         .then((response) => {
           this.products = [...this.products, ...response.data.results];
           this.hasMore = response.data.next ? true : false;
+          this.nextPage++;
         })
         .catch((error) => {
           console.log(error);
