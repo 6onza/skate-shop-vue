@@ -3,6 +3,7 @@ import AppHome from '../views/Home.vue'
 import AppAbout from '../views/About.vue'
 import AppContact from '../views/Contact.vue'
 import AppProducts from '../views/Products.vue'
+import AppProductDetails from '../views/ProductDetails.vue'
 
 const routes = [
 
@@ -25,6 +26,11 @@ const routes = [
     path: '/products',
     name: 'AppProducts',
     component: AppProducts
+  },
+  {
+    path: '/products/:id',
+    name: 'AppProductDetails',
+    component: AppProductDetails
   },
   {
     path: '/:catchAll(.*)',
