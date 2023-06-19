@@ -204,13 +204,13 @@
         />
         <p
           class="text-center w-100 mt-5 pt-5 no-hay-productos"
-          v-if="!products.length"
+          v-if="!hasMore && products.length === 0 && !loading"
         >
           No hay mas productos para mostrar.
         </p>
         <div class="d-flex justify-content-center my-5">
           <button
-            v-if="hasMore"
+            v-if="!loading && hasMore"
             type="button"
             @click="showMoreProducts"
             class="basic-button-white"
@@ -218,6 +218,9 @@
             mostrar mas
             <i class="fas fa-chevron-down"></i>
           </button>
+          <div v-if="loading" class="spinner-loading text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
         </div>
       </div>
     </div>
@@ -248,6 +251,7 @@ export default {
       selectedCategories: [],
       filtersApplied: false,
       sortBy: "name",
+      loading: false,
     };
   },
   mounted() {
@@ -263,9 +267,11 @@ export default {
       }
     },
     loadProducts() {
+      this.loading = true;
       this.fetchProducts();
     },
     showMoreProducts() {
+      this.loading = true;
       this.fetchMoreProducts();
     },
     applyFilters() {
@@ -277,6 +283,7 @@ export default {
       this.selectedCategories = selectedCategories;
       this.products = [];
       this.filtersApplied = true;
+      this.nextPage = 1;
 
       this.selectedCategories.forEach((category) => {
         this.fetchCategoryProducts(category);
@@ -286,6 +293,7 @@ export default {
       this.products = [];
       this.selectedCategories = [];
       this.filtersApplied = false;
+      this.nextPage = 1;
       this.loadProducts();
     },
     
@@ -295,6 +303,17 @@ export default {
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap");
+
+.spinner-loading {
+  width: 2rem;
+  height: 2rem;
+  margin: 0 auto;
+  display: block;
+  border: 0.25rem solid #000;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spinner-border 0.75s linear infinite;
+}
 .boton-filtros {
   background-color: #ffffff;
   color: #000000;

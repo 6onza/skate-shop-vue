@@ -2,7 +2,7 @@
   <div class="product col-md-3 col-6 mt-5 text-center px-1">
     <div class="d-flex justify-content-center flex-column">
       <div class="product-info-container px-0">
-        <a href="#" class="text-decoration-none" style="color: #000000" @mouseover="mouseOver = true" @mouseleave="mouseOver = false">
+        <a :href="'/products/' + product.id" class="text-decoration-none" style="color: #000000" @mouseover="mouseOver = true" @mouseleave="mouseOver = false">
           <div class="product-img-container">
             <img :src="'https://res.cloudinary.com/dlweonm9e/' + product.image_1" alt="product image"  v-show="!mouseOver" />
             <img :src="'https://res.cloudinary.com/dlweonm9e/' + product.image_2" alt="product image"  v-show="mouseOver" />

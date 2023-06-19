@@ -240,6 +240,9 @@
         @addToCart="updateCart"
       />
     </div>
+    <div v-if="loading" class="spinner-loading text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
     <div class="container d-flex justify-content-center mt-3">
       <a
         class="basic-button text-decoration-none mt-5 mb-5"
@@ -369,20 +372,30 @@ export default {
     return {
       cartCount: 0,
       productsOnCart: [],
+      loading: false,
     };
   },
   mounted() {
     this.updateCart();
-    this.fetchProducts('products');
+    this.loading = true;
+    this.fetchProducts("products");
   },
-  methods: {
-    // Resto de los métodos...
-  },
+  methods: {},
 };
 </script>
 
-
 <style>
+.spinner-loading {
+  width: 2rem;
+  height: 2rem;
+  margin: 0 auto;
+  display: block;
+  border: 0.25rem solid #000;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spinner-border 0.75s linear infinite;
+}
+
 .carousel-item img {
   height: 500px;
   object-fit: cover;
