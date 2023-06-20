@@ -179,6 +179,7 @@
             type="button"
             class="basic-button-white my-2"
             @click="applyFilters"
+            style="font-size: 1rem;"
           >
             <i class="fas fa-filter"></i>
             aplicar filtros
@@ -189,6 +190,7 @@
             type="button"
             class="basic-button-white"
             @click="clearFilters"
+            style="font-size: 1rem;"
           >
             <i class="fas fa-trash-alt"></i>
             eliminar filtros
@@ -214,6 +216,7 @@
             type="button"
             @click="showMoreProducts"
             class="basic-button-white"
+            style="font-size: 1rem;"
           >
             mostrar mas
             <i class="fas fa-chevron-down"></i>

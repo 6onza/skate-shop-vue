@@ -85,6 +85,8 @@ export default {
 </script>
 
 <style scoped>
+/* font-family: 'Bebas neue', cursive; */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 .product {
   text-align: center;
   margin-bottom: 20px;
@@ -101,6 +103,8 @@ export default {
 .product img {
   height: auto;
   width: 100%;
+  object-fit: cover;
+  cursor: pointer;
 }
 .product img:hover {
   transform: scale(1.05);
@@ -127,17 +131,20 @@ export default {
   color: #ffffff;
 }
 .product .btn-agregar {
-  background-color: #000000;
-  color: #ffffff;
+  background-color: #ffffff;
+  color: #000000;
   border: 1px solid #000000;
   padding: 5px 0px 5px 0px;
   cursor: pointer;
   width: 70%; 
+  font-family: 'Bebas Neue', cursive;
+  font-size: 1rem;
+  letter-spacing: 1px;
 }
 
 .product .btn-agregar:hover {
-  background-color: #ffffff;
-  color: #000000;
+  background-color: #000000;
+  color: #ffffff;
   transition: 0.2s;
 }
 
@@ -148,7 +155,7 @@ export default {
   }
   .product-img-container {
     width: 150px;
-    height: 150px;
+    height: 200px;
   }
   .product h3 {
     font-size: 0.8rem;

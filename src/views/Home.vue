@@ -245,7 +245,7 @@
     </div>
     <div class="container d-flex justify-content-center mt-3">
       <a
-        class="basic-button text-decoration-none mt-5 mb-5"
+        class="basic-button text-decoration-none mt-5 mb-5 boton-ver-todos"
         style="font-size: 1rem; padding: 0.5rem 1rem"
         href="/products"
       >
@@ -385,6 +385,8 @@ export default {
 </script>
 
 <style>
+/* bebas neue */
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
 .spinner-loading {
   width: 2rem;
   height: 2rem;
@@ -423,6 +425,8 @@ export default {
   border: 1px solid #000000;
   padding: 5px 10px 5px 10px;
   cursor: pointer;
+  font-family: "Bebas Neue", cursive;
+  letter-spacing: 2px;
 }
 .basic-button:hover {
   background-color: #000000;
@@ -435,10 +439,28 @@ export default {
   border: 1px solid #000000;
   padding: 10px 15px 10px 15px;
   cursor: pointer;
+  font-family: "Bebas Neue", cursive;
+  font-size: 1.5rem;
+  letter-spacing: 0.1rem;
 }
 .basic-button-white:hover {
   background-color: #000000;
   color: #ffffff;
+  transition: 0.2s;
+}
+.boton-ver-todos{
+  background-color: #000000;
+  color: #ffffff;
+  border: 1px solid #000000;
+  padding: 15px 15px 10px 15px;
+  cursor: pointer;
+  font-family: "Bebas Neue", cursive;
+  font-size: 1.5rem;
+  letter-spacing: 0.1rem;
+}
+.boton-ver-todos:hover{
+  background-color: #ffffff;
+  color: #000000;
   transition: 0.2s;
 }
 .brands-container {
