@@ -91,52 +91,54 @@
             style="background-color: #000; color: #fff"
           >
             <li class="nav-item">
-              <a class="nav-link" href="/" style="border-bottom: 3px solid #fff"
-                >inicio</a
-              >
+              <a class="nav-link" href="/">inicio</a>
             </li>
             <!-- products dropdown -->
             <li class="nav-item dropdown">
               <a
-                class="nav-link dropdown-toggle"
-                href="#"
+                class="nav-link nav-link-products"
+                href="/products"
                 id="navbarDropdownMenuLink"
-                role="button"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
+                @mouseover="showDropdown"
+                @mouseout="hideDropdown"
+                @click="redirectProducts"
               >
                 productos
               </a>
               <ul
                 class="dropdown-menu"
                 aria-labelledby="navbarDropdownMenuLink"
+                :class="{ show: isDropdownVisible }"
+                @mouseover="showDropdown" @mouseout="hideDropdown"
               >
                 <li>
-                  <a class="dropdown-item" href="/products/indumentaria">
-                    indumentaria
-                  </a>
+                  <a class="dropdown-item" href="/products/indumentaria"
+                    >indumentaria</a
+                  >
                 </li>
                 <li>
-                  <a class="dropdown-item" href="/products/tablas"> tablas </a>
+                  <a class="dropdown-item" href="/products/tablas">tablas</a>
                 </li>
                 <li>
-                  <a class="dropdown-item" href="/products/ruedas"> ruedas </a>
+                  <a class="dropdown-item" href="/products/ruedas">ruedas</a>
                 </li>
                 <li>
-                  <a class="dropdown-item" href="/products/trucks"> trucks </a>
+                  <a class="dropdown-item" href="/products/trucks">trucks</a>
                 </li>
                 <li>
-                  <a class="dropdown-item" href="/products/rulemanes">
-                    rulemanes
-                  </a>
+                  <a class="dropdown-item" href="/products/rulemanes"
+                    >rulemanes</a
+                  >
                 </li>
                 <li>
-                  <a class="dropdown-item" href="/products/accesorios">
-                    accesorios
-                  </a>
+                  <a class="dropdown-item" href="/products/accesorios"
+                    >accesorios</a
+                  >
                 </li>
                 <li>
-                  <a class="dropdown-item" href="/products"> ver todos </a>
+                  <a class="dropdown-item" href="/products">ver todos</a>
                 </li>
               </ul>
             </li>
@@ -193,36 +195,28 @@
         @update-cart="updateCart"
       />
       <div
-        class="d-flex row py-3 px-0 justify-content-center"
+        class="d-flex row px-0 justify-content-center d-flex align-items-center"
         v-if="cartCount > 0"
       >
-        <div class="col-12 col-md-6 ps-3">
-          <h5
-            class="text-center pt-2 ps-4"
-            style="font-family: Arial, Helvetica, sans-serif; font-size: 1rem"
-          >
-            TOTAL
-          </h5>
-        </div>
-        <div class="col-12 col-md-6 text-end">
+        <div class="col-12 col-md-12 text-end">
           <!-- cruz -->
           <h5
             class="text-center pt-2"
-            style="font-family: Arial, Helvetica, sans-serif; font-size: 1rem"
+            style="font-family: 'Bebas neue'; font-size: 1.2rem"
           >
-            ${{ total }}
+            TOTAL: ${{ totalCartPrice }}
           </h5>
         </div>
-        <div class="col-12 col-md-12 text-center pe-2">
-          <button
-            type="button"
-            class="btn btn-dark text-center"
-            style="border-radius: 0"
+        <div
+          class="col-12 col-md-12 text-center pe-2 d-flex align-items-center"
+        >
+          <a
+            href="/checkout"
+            class="text-decoration-none btn-finalizar-compra"
+            style="font-size: 1rem"
           >
-            <a href="/checkout" class="text-decoration-none text-white">
-              FINALIZAR COMPRA
-            </a>
-          </button>
+            <i class="fas fa-shopping-cart"></i> FINALIZAR COMPRA
+          </a>
         </div>
       </div>
     </div>
@@ -250,12 +244,17 @@ export default {
       type: Array,
       required: true,
     },
+    totalCartPrice: {
+      type: Number,
+      required: true,
+    },
   },
   data() {
     return {
       isScrolled: false,
       total: 0,
       showCart: false,
+      isDropdownVisible: false,
     };
   },
   mounted() {
@@ -275,20 +274,23 @@ export default {
     showOrHideCart() {
       this.showCart = !this.showCart;
     },
-    calculateTotal() {
-      let total = 0;
-      for (let i = 0; i < this.productsOnCart.length; i++) {
-        total += parseInt(
-          this.productsOnCart[i].price.replace("$", "").replace(".", "")
-        );
-      }
-      this.total = total;
+
+    showDropdown() {
+      this.isDropdownVisible = true;
+    },
+    hideDropdown() {
+      this.isDropdownVisible = false;
+    },
+    redirectProducts() {
+      this.$router.push("/products");
     },
   },
 };
 </script>
 
 <style scoped>
+/* bebas neue */
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
 .cart-container {
   width: 100vw;
   top: 0;
@@ -318,6 +320,29 @@ export default {
   height: 100vh;
   overflow: auto;
   animation: slideFromRight 0.5s;
+}
+.btn-finalizar-compra {
+  background-color: #000000;
+  color: #ffffff;
+  border: none;
+  width: 100%;
+  height: 3em;
+  font-family: "Bebas Neue", cursive;
+  border-radius: 0;
+  border: 1px solid #000000;
+  padding: 10px 5px;
+  font-size: 1.1rem;
+  letter-spacing: 2px;
+  border-radius: 0.5rem;
+}
+.btn-finalizar-compra:hover {
+  background-color: #ffffff;
+  color: #000000;
+  border: none;
+  width: 100%;
+  height: 3em;
+  border: 1px solid #000000;
+  transition: 0.3s;
 }
 
 @keyframes slideFromRight {
@@ -358,13 +383,13 @@ export default {
 }
 .navbar {
   background-color: #ffffff;
+  border-bottom: 3px solid #b8b8b8;
 }
 .navbar-nav {
   margin-top: 10px;
 }
 .nav-item {
   color: #ffffff;
-  font-size: 1.2rem;
   /* margin-left: 10px; */
   letter-spacing: 0.05rem;
 }
@@ -373,12 +398,16 @@ export default {
   padding: 8px 15px 8px 15px;
   transition: 0.5s;
   border-bottom: 3px solid transparent;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 1.2rem;
+  letter-spacing: 0.05rem;
 }
 .nav-link:hover {
-  border-bottom: 3px solid #fff;
+  text-decoration: line-through 3px #565656;
+  color: #c4c4c4;
 }
 .link-text:hover {
-  color: #ffffff;
+  color: #878585;
   background-color: #000000;
 }
 .scrolled-nav {
@@ -387,16 +416,18 @@ export default {
   transition: 1s;
 }
 .dropdown-menu {
-  background-color: #ffffff;
-  border: none;
-  border-radius: 0;
+  background-color: #000000;
+  border: 1px solid #494949;
+  border-radius: .3rem;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
   width: 100% !important;
 }
 .dropdown-menu a {
-  color: #000000;
-  font-size: 1rem;
+  color: #ffffff;
+  font-size: 1.2rem;
   padding: 0.5rem 0.5rem;
+  font-family: "Bebas Neue", sans-serif;
+  letter-spacing: 0.05rem;
 }
 .dropdown-item {
   color: #000000;
@@ -404,12 +435,13 @@ export default {
   padding: 0.5rem 0.5rem;
 }
 .dropdown-item:hover {
-  color: #ffffff;
-  background-color: #000000;
+  color: #000000;
+  background-color: #ffffff;
+  transition: 0.2s;
 }
 .dropdown-item:focus {
-  color: #ffffff;
-  background-color: #000000;
+  color: #000000;
+  background-color: #ffffff;
 }
 
 @keyframes moveText {
@@ -438,6 +470,16 @@ export default {
   }
   .cart-items {
     width: 100%;
+  }
+  .nav-link {
+    padding: 8px 5px 8px 5px;
+    border: none;
+    background-color: #fff;
+    color: #000;
+    text-align: center;
+  }
+  .nav-link-products {
+    border-bottom: none;
   }
 }
 </style>
