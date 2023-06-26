@@ -10,21 +10,21 @@
     style="margin-top: 270px"
   >
     <div
-      class="container-xxl d-flex row align-items-center justify-content-center mb-5"
+      class="container-xxl d-flex row align-items-center justify-content-center mb-0"
     >
+      <div class="path mb-0 mt-3 ps-md-5 ms-md-5">
+        <p class="ps-md-5 ms-md-2">
+          <router-link to="/" class="path-link" style="color: #000000"
+            >Home</router-link
+          >
+          /
+          <router-link to="/products" class="path-link" style="color: #000000"
+            >Products</router-link
+          >
+          / {{ product.name }}
+        </p>
+      </div>
       <div class="col-md-6 col-12 imagenes-container pe-md-5 row d-flex">
-        <div class="path mb-5 mt-3 ps-md-5">
-          <p>
-            <router-link to="/" class="path-link" style="color: #000000"
-              >Home</router-link
-            >
-            /
-            <router-link to="/products" class="path-link" style="color: #000000"
-              >Products</router-link
-            >
-            / {{ product.name }}
-          </p>
-        </div>
         <div
           class="imagenes-chicas-container flex-md-column d-flex col-12 col-md-2 px-0 order-2 order-md-1 align-items-center justify-content-center mb-5 mb-md-0"
         >
@@ -146,13 +146,13 @@
   </div>
   <div
     class="container-fluid related-products mb-5 pb-5"
-    v-if="products.length > 0"
+    v-if="relatedProducts.length > 0"
   >
     <div class="container-xxl">
       <h3 class="my-3 text-center">Productos relacionados</h3>
       <div class="row d-flex justify-content-center">
         <AppProduct
-          v-for="product in products"
+          v-for="product in relatedProducts"
           :key="product.id"
           :product="product"
           @addToCart="updateCart"
@@ -187,6 +187,7 @@ export default {
       imageSelected: 1,
       selectedSizeIndex: 0,
       zoomStyle: null,
+      relatedProducts: [],
     };
   },
   mounted() {
@@ -332,7 +333,6 @@ export default {
   border: none;
   border-radius: 0;
   font-size: 1.3rem;
-  font-weight: bold;
   cursor: pointer;
   font-family: "Bebas neue", cursive;
   border: 1px solid #000;
@@ -346,5 +346,17 @@ export default {
 .related-products h3 {
   font-family: "Bebas neue", cursive;
   font-size: 3rem;
+}
+
+@media (max-width: 768px) {
+  .product-name {
+    font-size: 2rem;
+  }
+  .related-products h3 {
+    font-size: 2rem;
+  }
+  .btn-agregar {
+    font-size: 1rem;
+  }
 }
 </style>
