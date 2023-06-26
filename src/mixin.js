@@ -112,7 +112,7 @@ export const productMixin = {
 
     fetchProductsSortedByPrice(order) {
       axios
-        .get("https://skate-shop-api.vercel.app/api/products/ordered/" + order + "/", {
+        .get("https://skate-shop-api.vercel.app/api/products/sorted/" + order + "/", {
           params: {
             page: this.nextPage,
           }
