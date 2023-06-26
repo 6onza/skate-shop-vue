@@ -307,11 +307,7 @@
             type="button"
             class="basic-button-white my-2"
             @click="applyFilters"
-<<<<<<< HEAD
             style="font-size: 1rem"
-=======
-            style="font-size: 1rem;"
->>>>>>> 24295a1c5fb741db58d93c8eac7ac5d66809c3ae
           >
             <i class="fas fa-filter"></i>
             aplicar filtros
@@ -323,7 +319,6 @@
             class="basic-button-white my-2"
             @click="clearFilters"
             style="font-size: 1rem"
-            style="font-size: 1rem;"
           >
             <i class="fas fa-trash-alt"></i>
             eliminar filtros
@@ -393,7 +388,6 @@
             @click="showMoreProducts(showMoreProductsFilter)"
             class="basic-button-white"
             style="font-size: 1rem;"
-            style="font-size: 1rem"
           >
             mostrar mas
             <i class="fas fa-chevron-down"></i>
