@@ -4,8 +4,8 @@ export const cartMixin = {
   data() {
     return {
       productsOnCart: [],
-      totalCartPrice: 0,
       cartCount: 0,
+      totalCartPrice: 0,
     };
   },
   methods: {
@@ -13,128 +13,87 @@ export const cartMixin = {
       const productsOnCart = JSON.parse(localStorage.getItem("cart"));
       this.productsOnCart = productsOnCart || [];
     },
-    calculateTotal() {
-      this.totalCartPrice = 0;
-      this.productsOnCart.forEach((product) => {
-        this.totalCartPrice += parseInt(product.price);
-      }
-      );
-    },
     updateCart() {
       const cartCount = JSON.parse(localStorage.getItem("cart"))?.length;
       this.cartCount = cartCount || 0;
       this.getProductsOnCart();
-      this.calculateTotal();
+
     },
   },
   mounted() {
     this.updateCart();
-
   },
   watch: {
     productsOnCart() {
-      localStorage.setItem("cart", JSON.stringify(this.productsOnCart));
-      this.calculateTotal();
-    }
-  }
+      const cartCount = JSON.parse(localStorage.getItem("cart"))?.length;
+      this.cartCount = cartCount || 0
+      this.totalCartPrice = this.productsOnCart.reduce(
+        (total, product) => total + product.price,
+        0
+      );
 
-  
+    },
+  }
 };
 
-export const productMixin = {
+export const apiMixin = {
   data() {
     return {
+      pageTitle: "",
       products: [],
       nextPage: 1,
       hasMore: true,
       relatedProducts: [],
+      sort_by: "created_at",
+      selectedCategories: [],
+      filtersApplied: false,
     };
   },
   methods: {
-    fetchProducts() {
+    fetchProducts(categories, order) {
+      const params = {
+        page: this.nextPage,
+        categories: categories,
+        sort_by: order,
+      };
       axios
-        .get("https://skate-shop-api.vercel.app/api/products/all/", {
-          params: {
-            page: this.nextPage,
-          },
-        })
+        .get("skate-shop-api.vercel.app/api/products/", { params })
         .then((response) => {
-          this.loading = false;
-          const products = response.data.results;
-          this.products = [...this.products, ...products];
+          this.products = [...this.products, ...response.data.results];
+          this.nextPage = response.data.next ? this.nextPage + 1 : null;
           this.hasMore = response.data.next ? true : false;
+          this.loading = false;
         })
         .catch((error) => {
           console.log(error);
         });
-    },
-    fetchMoreProducts() {
-      if (this.hasMore) {
-        this.nextPage++;
-        this.fetchProducts();
-      }
     },
     fetchProduct(id) {
       axios
-        .get(`https://skate-shop-api.vercel.app/api/products/all/${id}/`)
+        .get(`skate-shop-api.vercel.app/api/products/${id}/`)
         .then((response) => {
-          this.product = response.data
+          this.product = response.data;
+          document.title = this.product.name; 
           axios
-            .get(`https://skate-shop-api.vercel.app/api/products/category/${this.product.category}/`)
+            .get(
+              `skate-shop-api.vercel.app/api/products?categories=${this.product.category}&sort_by=created_at`
+            )
             .then((response) => {
               // el filter es para que no aparezca el producto que estamos viendo en la lista de productos relacionados
-              this.relatedProducts = response.data.results.filter(product => product.id !== this.product.id)
-            }
-            )
-          
+              this.relatedProducts = response.data.results.filter(
+                (product) => product.id !== this.product.id
+              );
+            });
         })
         .catch((error) => {
           console.log(error);
         });
-    },
-    fetchCategoryProducts(category) {
-      axios
-        .get(`https://skate-shop-api.vercel.app/api/products/category/${category}/`)
-        .then((response) => {
-          this.products = [...this.products, ...response.data.results];
-          this.hasMore = response.data.next ? true : false;
-          this.nextPage++;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    },
-    fetchMoreProductsByCategory(category) {
-      if (this.hasMore) {
-        this.fetchCategoryProducts(category);
-      }
-    },
+      },
+      fetchProductsCategory(category){
+        this.filtersApplied = true;
 
-    fetchProductsSortedByPrice(order) {
-      axios
-        .get("https://skate-shop-api.vercel.app/api/products/sorted/" + order + "/", {
-          params: {
-            page: this.nextPage,
-          }
-        })
-        .then((response) => {
-          this.loading = false;
-          const products = response.data.results;
-          this.products = [...this.products, ...products];
-          this.hasMore = response.data.next ? true : false;
-          this.nextPage++;
-        }
-        )
-        .catch((error) => {
-          console.log(error);
-        }
-      );
 
-    },
-    fetchMoreProductsSortedByPrice(order) {
-      if (this.hasMore) {
-        this.fetchProductsSortedByPrice(order);
-      }
-    }
-  },
+        this.fetchProducts(category, this.sort_by)
+      },
+  }
 };
