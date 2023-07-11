@@ -57,7 +57,7 @@ export const apiMixin = {
         sort_by: order,
       };
       axios
-        .get("skate-shop-api.vercel.app/api/products/", { params })
+        .get("https://skate-shop-api.vercel.app/api/products/", { params })
         .then((response) => {
           this.products = [...this.products, ...response.data.results];
           this.nextPage = response.data.next ? this.nextPage + 1 : null;
@@ -70,13 +70,13 @@ export const apiMixin = {
     },
     fetchProduct(id) {
       axios
-        .get(`skate-shop-api.vercel.app/api/products/${id}/`)
+        .get(`https://skate-shop-api.vercel.app/api/products/${id}/`)
         .then((response) => {
           this.product = response.data;
           document.title = this.product.name; 
           axios
             .get(
-              `skate-shop-api.vercel.app/api/products?categories=${this.product.category}&sort_by=created_at`
+              `https://skate-shop-api.vercel.app/api/products?categories=${this.product.category}&sort_by=created_at`
             )
             .then((response) => {
               // el filter es para que no aparezca el producto que estamos viendo en la lista de productos relacionados
