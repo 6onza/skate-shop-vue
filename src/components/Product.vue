@@ -2,12 +2,12 @@
   <div class="product col-md-3 col-6 mt-5 text-center px-1">
     <div class="d-flex justify-content-center flex-column">
       <div class="product-info-container px-0">
-        <a :href="'/products/' + product.id" class="text-decoration-none" style="color: #000000" @mouseover="mouseOver = true" @mouseleave="mouseOver = false">
+        <a :href="'/product/' + product.id" class="text-decoration-none" style="color: #000000" @mouseover="mouseOver = true" @mouseleave="mouseOver = false">
           <div class="product-img-container">
             <img :src="'https://res.cloudinary.com/dlweonm9e/' + product.image_1" alt="product image"  v-show="!mouseOver" />
             <img :src="'https://res.cloudinary.com/dlweonm9e/' + product.image_2" alt="product image"  v-show="mouseOver" />
           </div>
-          <h3 class="mb-1">{{ product.name }}</h3>
+          <h3 class="mb-1 px-2">{{ product.name }}</h3>
           <p class="mb-0">${{ parseInt(product.price) }}</p>
         </a>
         <!-- sizes options -->
@@ -29,9 +29,11 @@
 
 
 <script>
+import { cartMixin } from '../mixin.js';
 
 export default {
   name: "AppProduct",
+  mixins: [cartMixin],
   props: {
     product: {
       type: Object,
@@ -45,7 +47,6 @@ export default {
       mouseOver: false,
     };
   },
-
   methods: {
     
     selectSize(index) {
@@ -77,8 +78,8 @@ export default {
         size: this.product.size[this.selectedSizeIndex],
       };
       cart.push(product);
-      localStorage.setItem("cart", JSON.stringify(cart)); 
-      this.$emit('addToCart')
+      localStorage.setItem("cart", JSON.stringify(cart));
+      this.$emit("updateCart");
     },
   },
 };
@@ -102,39 +103,44 @@ export default {
 }
 .product img {
   height: auto;
-  width: 100%;
+  width: 90%;
   object-fit: cover;
   cursor: pointer;
 }
 .product img:hover {
-  transform: scale(1.05);
+  transform: scale(1.01);
   transition: 0.2s;
 }
 
 .product h3 {
   margin-top: 10px;
   margin-bottom: 10px;
-  font-size: 1rem;
+  font-size: .9rem;
   height: 35px;
 }
 
 .product-info-container {
   padding: 0 20px;
 }
+
 .product-size {
   background-color: #ffffff;
   color: #000000;
   border: 1px solid #969696;
+  border-radius: .2rem !important;
 }
 .product-size-selected {
   background-color: #000000;
   color: #ffffff;
+  border: 1px solid #000000;
+  border-radius: .5rem;
 }
 .product .btn-agregar {
-  background-color: #ffffff;
-  color: #000000;
+  background-color: #000000;
+  color: #ffffff;
   border: 1px solid #000000;
   padding: 5px 0px 5px 0px;
+  border-radius: .3rem;
   cursor: pointer;
   width: 70%; 
   font-family: 'Bebas Neue', cursive;
@@ -143,8 +149,8 @@ export default {
 }
 
 .product .btn-agregar:hover {
-  background-color: #000000;
-  color: #ffffff;
+  background-color: #ffffff;
+  color: #000000;
   transition: 0.2s;
 }
 
