@@ -27,21 +27,14 @@ export default {
   },
   methods: {
     removeProductFromCart() {
-      // obtengo el carrito del localStorage
       const cart = JSON.parse(localStorage.getItem("cart")) || [];
-      // busco el producto en el carrito
-      const productInCart = cart.find(
-        (product) =>
-          product.id === this.product.id && product.size === this.product.size
+      const productIndex = cart.findIndex(
+        p => p.id === this.product.id && p.size === this.product.size
       );
-      // si el producto está en el carrito, lo elimino
-      if (productInCart) {
-        const productIndex = cart.indexOf(productInCart);
+      if (productIndex !== -1) {
         cart.splice(productIndex, 1);
-        // guardo el carrito en el localStorage
         localStorage.setItem("cart", JSON.stringify(cart));
-        // emito el evento para que el componente padre actualice el carrito
-        this.$emit("update-cart");
+        this.$emit("updateCart");
       }
     },
   },
