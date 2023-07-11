@@ -32,7 +32,7 @@
                   alt="correo argentino"
                   width="80px"
                   height="30px"
-                  style="background-color: #fff"
+                  style="background-color: #fff; border-radius: 5px"
                 />
               </a>
             </li>
