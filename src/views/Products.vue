@@ -546,6 +546,7 @@ export default {
       this.filtersApplied = true;
       this.products = [];
       this.nextPage = 1;
+      this.loading = true;
       const concatCategories = this.selectedCategories.join(",");
       this.$router.push({
         query: {
