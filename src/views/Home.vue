@@ -1,13 +1,7 @@
 <template>
-  <AppNavbar
-    :cartCount="cartCount"
-    :productsOnCart="productsOnCart"
-    @updateCart="updateCart"
-    :products="products"
-    :totalCartPrice="totalCartPrice"
-  />
+  <AppNavbar :cartCount="cartCount" :productsOnCart="productsOnCart" @updateCart="updateCart"/>
   <div
-    class="container-fluid p-0"
+    class="container-fluid p-0 image-header-container"
     style="position: relative; margin-top: 170px; opacity: 0.9"
   >
     <img
@@ -18,73 +12,81 @@
     />
   </div>
   <div class="container envios-info">
-    <!-- entregas -->
-    <div class="row mt-5 mb-5 d-flex justify-content-center">
-      <div
-        class="col-12 col-md-3 d-flex m-4 ps-5 ps-md-0"
-        style="border-right: 1px solid #b2b2b2"
-      >
-        <img
-          src="../assets/icons/credit-card.svg"
-          alt=""
-          style="
-            width: 40px;
-            height: 40px;
-            object-fit: cover;
-            object-position: center;
-          "
-        />
-        <div class="ms-3">
-          <h5 class="m-0" style="font-family: 'Arial', sans-serif">
-            Pagá como quieras
-          </h5>
-          <p style="font-family: 'Arial', sans-serif; font-size: 0.8rem">
-            Aceptamos tarjetas de credito y efectivo.
-          </p>
-        </div>
-      </div>
-      <div
-        class="col-12 col-md-3 d-flex m-4 ps-5 ps-md-0"
-        style="border-right: 1px solid #b2b2b2"
-      >
-        <img
-          src="../assets/icons/lock.svg"
-          alt=""
-          style="
-            width: 40px;
-            height: 40px;
-            object-fit: cover;
-            object-position: center;
-          "
-        />
-        <div class="ms-3">
-          <h5 class="m-0" style="font-family: 'Arial', sans-serif">
-            Comprá con seguridad
-          </h5>
-          <p style="font-family: 'Arial', sans-serif; font-size: 0.8rem">
-            Encriptamos los datos de tu compra.
-          </p>
-        </div>
-      </div>
-      <div class="col-12 col-md-3 d-flex m-4 ps-5 ps-md-0">
-        <img
-          src="../assets/icons/truck.svg"
-          alt=""
-          style="
-            width: 40px;
-            height: 40px;
-            object-fit: cover;
-            object-position: center;
-          "
-        />
-        <div class="ms-3">
-          <h5 class="m-0" style="font-family: 'Arial', sans-serif">
-            Recibí tu compra
-          </h5>
+    <div class="d-flex my-5 justify-content-center">
 
-          <p style="font-family: 'Arial', sans-serif; font-size: 0.8rem">
-            El producto llega a la puerta de tu casa.
-          </p>
+      <div class="row d-flex w-100 justify-content-center">
+        <div
+          class="col-12 col-md-4 d-flex justify-content-center justify-content-md-auto ps-md-5 ps-2"
+          style="border-right: 1px solid #b2b2b2"
+        >
+        <div class="d-flex compra-info-header">
+          <img
+            src="../assets/icons/credit-card.svg"
+            alt=""
+            style="
+              width: 40px;
+              height: 40px;
+              object-fit: cover;
+              object-position: center;
+            "
+          />
+          <div class="ms-3">
+            <h5 class="m-0" style="font-family: 'Arial', sans-serif">
+              Pagá como quieras
+            </h5>
+            <p style="font-family: 'Arial', sans-serif; font-size: 0.8rem">
+              Aceptamos tarjetas de credito y efectivo.
+            </p>
+          </div>
+        </div>
+        </div>
+        <div
+          class="col-12 col-md-4 d-flex justify-content-center justify-content-md-auto ps-md-5 ps-2"
+          style="border-right: 1px solid #b2b2b2"
+        >
+        <div class="d-flex compra-info-header">
+          <img
+            src="../assets/icons/lock.svg"
+            alt=""
+            style="
+              width: 40px;
+              height: 40px;
+              object-fit: cover;
+              object-position: center;
+            "
+          />
+          <div class="ms-3">
+            <h5 class="m-0" style="font-family: 'Arial', sans-serif">
+              Comprá con seguridad
+            </h5>
+            <p style="font-family: 'Arial', sans-serif; font-size: 0.8rem">
+              Encriptamos los datos de tu compra.
+            </p>
+          </div>
+        </div>
+        </div>
+        <div class="col-12 col-md-4 d-flex justify-content-md-auto justify-content-center ps-md-5 ps-auto">
+          <div class="d-flex compra-info-header">
+            <img
+              src="../assets/icons/truck.svg"
+              alt=""
+              style="
+                width: 40px;
+                height: 40px;
+                object-fit: cover;
+                object-position: center;
+              "
+            />
+            <div class="ms-3">
+              <h5 class="m-0" style="font-family: 'Arial', sans-serif">
+                Recibí tu compra
+              </h5>
+    
+              <p style="font-family: 'Arial', sans-serif; font-size: 0.8rem">
+                El producto llega a la puerta de tu casa.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -96,7 +98,7 @@
       <div
         class="oferta d-flex container justify-content-center flex-column align-items-center col-12 col-md-4 mt-5"
       >
-        <div class="oferta-img-container">
+        <div class="oferta-image-container">
           <img
             src="../assets/img/products/skate-complete.png"
             alt="skate"
@@ -109,7 +111,7 @@
       <div
         class="oferta d-flex container justify-content-center flex-column align-items-center col-12 col-md-4 mt-5"
       >
-        <div class="oferta-img-container">
+        <div class="oferta-image-container">
           <img
             src="../assets/img/products/thrasher-hoodie.png"
             alt="skate"
@@ -122,7 +124,7 @@
       <div
         class="oferta d-flex container justify-content-center flex-column align-items-center col-12 col-md-4 mt-5"
       >
-        <div class="oferta-img-container">
+        <div class="oferta-image-container">
           <img
             src="../assets/img/products/llave-t.png"
             alt="skate"
@@ -201,23 +203,24 @@
               rgba(13, 13, 13, 1) 38%,
               rgba(20, 20, 20, 1) 100%
             );
+            border-radius: 5px;
           "
         >
           <h2
             class="text-center mb-4 pt-5"
             style="
-              font-family: 'Arial', sans-serif;
-              font-size: 1.5rem;
+              font-family: 'Bebas Neue', cursive;
+              font-size: 2rem;
               font-weight: bold;
             "
           >
             SKATE SHOP
           </h2>
-          <p class="text-center px-3 mb-4" style="font-size: 1rem">
+          <p class="text-center px-3 mb-4" style="font-size: 1rem; font-family: 'Arial', sans-serif"> 
             En Skate Shop tenemos todo lo que necesitas para practicar tu
             deporte favorito.
           </p>
-          <p class="mb-3 mt-3">
+          <p class="mb-3 mt-3" style="font-size: 1rem; font-family: 'Arial', sans-serif">
             <i class="fas fa-map-marker-alt"></i> Av. Corrientes 1234, CABA
           </p>
           <a
@@ -238,91 +241,92 @@
         v-for="product in products"
         :key="product.id"
         :product="product"
-        @addToCart="updateCart"
+        @updateCart="updateCart"
       />
     </div>
     <div v-if="loading" class="spinner-loading text-primary" role="status">
       <span class="visually-hidden">Loading...</span>
     </div>
     <div class="container d-flex justify-content-center mt-3">
-      <a
-        class="basic-button text-decoration-none mt-5 mb-5 boton-ver-todos"
+      <router-link
+        class="basic-button text-decoration-none mt-5 mb-5 btn-ver-todos"
         style="font-size: 1rem; padding: 0.5rem 1rem"
-        href="/products"
+        :to="{name: 'AppProducts', params: {categories:  'all', order: 'created_at'}}"
       >
         ver todos <i class="fas fa-arrow-right"></i>
-      </a>
+      </router-link>
     </div>
   </div>
-  <div class="container mt-5 youtube-video">
-    <iframe
-      width="100%"
-      height="700"
-      src="https://www.youtube.com/embed/IpZJVMgH2WE"
-      title="YouTube video player"
-      frameborder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-      allowfullscreen
-    ></iframe>
-  </div>
   <div
-    class="container-fluid mt-5 d-flex justify-content-center ps-0 pe-0 me-0 ms-0"
+    class="container-fluid mt-5 d-flex justify-content-center px-0 mx-0"
   >
     <div
-      class="container ps-0 ms-0 pe-0 me-0 row mt-5 mb-5 d-flex justify-content-around align-items-center"
+      class="container px-0 mx-0 row my-0 my-md-5 d-flex justify-content-around align-items-center"
     >
       <div
         id="carouselExampleIndicators2"
-        class="carousel slide"
+        class="carousel slide px-0"
         data-bs-ride="carousel"
       >
         <div class="carousel-inner">
-          <div class="carousel-item active">
-            <div class="container row d-flex brands-container">
-              <div class="col-12 col-md-3 text-center">
+          <div class="carousel-item active px-2">
+            <div class="container px-0 row d-flex brands-container">
+              <div class="col-2 px-0 text-center">
                 <img
                   src="../assets/img/brands/element-logo.png"
                   alt="element logo"
                 />
               </div>
-              <div class="col-12 col-md-3 text-center">
+              <div class="col-2 px-0 text-center">
                 <img
                   src="../assets/img/brands/etnies-logo.png"
                   alt="etnies logo"
                 />
               </div>
-              <div class="col-12 col-md-3 text-center">
-                <img
-                  src="../assets/img/brands/spitfire-logo.png"
-                  alt="spitfire logo"
-                />
-              </div>
-              <div class="col-12 col-md-3 text-center">
-                <img src="../assets/img/brands/vans-logo.png" alt="vans logo" />
-              </div>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <div class="container row d-flex brands-container">
-              <div class="col-12 col-md-3 text-center">
-                <img
-                  src="../assets/img/brands/independent-logo.png"
-                  alt="element logo"
-                />
-              </div>
-              <div class="col-12 col-md-3 text-center">
-                <img
-                  src="../assets/img/brands/santa-cruz-logo.png"
-                  alt="etnies logo"
-                />
-              </div>
-              <div class="col-12 col-md-3 text-center">
+              <div class="col-2 px-0 text-center">
                 <img
                   src="../assets/img/brands/nike-sb-logo.png"
                   alt="spitfire logo"
                 />
               </div>
-              <div class="col-12 col-md-3 text-center">
+              <div class="col-2 px-0 text-center">
+                <img
+                  src="../assets/img/brands/spitfire-logo.png"
+                  alt="spitfire logo"
+                />
+              </div>
+              <div class="col-2 px-0 text-center">
+                <img src="../assets/img/brands/vans-logo.png" alt="vans logo" />
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item px-0 mx-0">
+            <div class="container row d-flex brands-container px-0">
+              <div class="col-2  px-0 me-3 text-center">
+                <img
+                  src="../assets/img/brands/independent-logo.png"
+                  alt="element logo"
+                />
+              </div>
+              <div class="col-2 px-0 text-center">
+                <img
+                  src="../assets/img/brands/etnies-logo.png"
+                  alt="etnies logo"
+                />
+              </div>
+              <div class="col-2 px-0 text-center">
+                <img
+                  src="../assets/img/brands/santa-cruz-logo.png"
+                  alt="etnies logo"
+                />
+              </div>
+              <div class="col-2 px-0 text-center">
+                <img
+                  src="../assets/img/brands/nike-sb-logo.png"
+                  alt="spitfire logo"
+                />
+              </div>
+              <div class="col-2 px-0 text-center">
                 <img
                   src="../assets/img/brands/new-balance-logo.png"
                   alt="vans logo"
@@ -332,57 +336,74 @@
           </div>
         </div>
         <button
-          class="carousel-control-prev"
+          class="carousel-control-prev d-none d-lg-block"
           type="button"
           data-bs-target="#carouselExampleIndicators2"
           data-bs-slide="prev"
         >
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Anterior</span>
         </button>
         <button
-          class="carousel-control-next"
+          class="carousel-control-next d-none d-lg-block"
           type="button"
           data-bs-target="#carouselExampleIndicators2"
           data-bs-slide="next"
         >
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Siguiente</span>
         </button>
       </div>
     </div>
   </div>
+  <div class="container my-5 youtube-video" >
+    <iframe style="border-radius: 5px;"
+      width="100%"
+      height="700"
+      src="https://www.youtube.com/embed/IpZJVMgH2WE"
+      title="YouTube video player"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+    ></iframe>
+  </div>
+  
+  <AppInfoPostSell />
   <AppFooter />
 </template>
 
 <script>
-import { cartMixin, productMixin } from "../mixin.js";
+import { cartMixin, apiMixin } from "../mixin.js";
 import AppNavbar from "../components/Navbar.vue";
 import AppProduct from "../components/Product.vue";
 import AppFooter from "../components/Footer.vue";
+import AppInfoPostSell from "../components/InfoPostSell.vue";
 
 export default {
   name: "AppHome",
-  mixins: [cartMixin, productMixin],
+  mixins: [cartMixin, apiMixin],
   components: {
     AppNavbar,
     AppProduct,
     AppFooter,
+    AppInfoPostSell,
   },
   data() {
     return {
       cartCount: 0,
       productsOnCart: [],
       loading: false,
-      totalCartPrice: 0,
+      pageTitle: "Skate Shop",
+      products: [],
     };
   },
   mounted() {
+    document.title = this.pageTitle;
     this.updateCart();
     this.loading = true;
-    this.fetchProducts("products");
+    this.fetchProducts();
   },
-  methods: {},
+  methods: {
+    selectCategory(category) {
+      this.goToCategory(category);
+    },
+  },
 };
 </script>
 
@@ -399,14 +420,19 @@ export default {
   border-radius: 50%;
   animation: spinner-border 0.75s linear infinite;
 }
+.compra-info-header{
+  width: 100%;
+  padding: 20px 0;
+}
 
 .carousel-item img {
   height: 500px;
   object-fit: cover;
   object-position: center;
   padding: 10px;
+  border-radius: 5px;
 }
-.oferta-img-container {
+.oferta-image-container {
   width: 250px;
   height: 250px;
   margin-bottom: 15px;
@@ -429,6 +455,7 @@ export default {
   cursor: pointer;
   font-family: "Bebas Neue", cursive;
   letter-spacing: 2px;
+  border-radius: .5rem;
 }
 .basic-button:hover {
   background-color: #000000;
@@ -444,15 +471,16 @@ export default {
   font-family: "Bebas Neue", cursive;
   font-size: 1.5rem;
   letter-spacing: 0.1rem;
+  border-radius: .5rem;
 }
 .basic-button-white:hover {
   background-color: #000000;
   color: #ffffff;
   transition: 0.2s;
 }
-.boton-ver-todos{
-  background-color: #000000;
-  color: #ffffff;
+.btn-ver-todos{
+  background-color: #ffffff;
+  color: #000000;
   border: 1px solid #000000;
   padding: 15px 15px 10px 15px;
   cursor: pointer;
@@ -460,19 +488,18 @@ export default {
   font-size: 1.5rem;
   letter-spacing: 0.1rem;
 }
-.boton-ver-todos:hover{
-  background-color: #ffffff;
-  color: #000000;
+.btn-ver-todos:hover{
+  background-color: #000000;
+  color: #ffffff;
   transition: 0.2s;
 }
 .brands-container {
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
-  padding: 0 50px 0 50px;
 }
 .brands-container img {
   width: auto;
-  height: 100px;
+  height: 90px;
   object-fit: cover;
   object-position: center;
   opacity: 0.8;
@@ -483,5 +510,41 @@ export default {
   background-color: #000000;
   margin: 20px;
   border-radius: 25px;
+}
+@media (max-width: 768px) {
+  .image-header-container{
+    margin-top: 100px !important;
+  }
+  
+  .carousel-item img {
+    height: 300px;
+  }
+  .oferta-image-container {
+    width: 200px;
+    height: 200px;
+  }
+  .oferta img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+  .brands-container{
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .brands-container img {
+    width: auto;
+    height: 50px;
+    object-fit: cover;
+    object-position: center;
+    opacity: 0.8;
+  }
+  .youtube-video iframe{
+    margin-top: 50px;
+    height: 400px;
+    width: 100%;
+  }
+  
 }
 </style>

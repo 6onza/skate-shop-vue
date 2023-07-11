@@ -3,7 +3,6 @@
     :cartCount="cartCount"
     :productsOnCart="productsOnCart"
     @updateCart="updateCart"
-    :products="products"
   />
   <div
     class="container-fluid d-flex justify-content-center mb-5 pb-5 p-0"
@@ -24,21 +23,21 @@
           / {{ product.name }}
         </p>
       </div>
-      <div class="col-md-6 col-12 imagenes-container pe-md-5 row d-flex">
+      <div class="col-md-6 col-12 images-container pe-md-5 row d-flex">
         <div
-          class="imagenes-chicas-container flex-md-column d-flex col-12 col-md-2 px-0 order-2 order-md-1 align-items-center justify-content-center mb-5 mb-md-0"
+          class="images-small-container flex-md-column d-flex col-12 col-md-2 px-0 order-2 order-md-1 align-items-center justify-content-center mb-5 mb-md-0"
         >
           <img
             :src="'https://res.cloudinary.com/dlweonm9e/' + product.image_1"
             alt="product image"
             @click="imageSelected = 1"
-            :class="{ 'imagen-chica-selected': imageSelected === 1 }"
+            :class="{ 'image-small-selected': imageSelected === 1 }"
           />
           <img
             :src="'https://res.cloudinary.com/dlweonm9e/' + product.image_2"
             alt="product image"
             @click="imageSelected = 2"
-            :class="{ 'imagen-chica-selected': imageSelected === 2 }"
+            :class="{ 'image-small-selected': imageSelected === 2 }"
           />
         </div>
         <div
@@ -46,7 +45,7 @@
           @mousemove="handleMouseMove"
           @mouseleave="resetZoom"
         >
-          <div class="imagen-grande-container">
+          <div class="big-image-container">
             <img
               :src="'https://res.cloudinary.com/dlweonm9e/' + product.image_1"
               alt="product image"
@@ -56,7 +55,7 @@
               class="zoom-image"
             />
           </div>
-          <div class="imagen-grande-container">
+          <div class="big-image-container">
             <img
               :src="'https://res.cloudinary.com/dlweonm9e/' + product.image_2"
               alt="product image"
@@ -138,7 +137,7 @@
             </button>
           </div>
         </div>
-        <button @click="addToCart" class="btn-agregar px-0">
+        <button @click="addToCart" class="btn-add px-0">
           añadir al carrito
         </button>
       </div>
@@ -149,13 +148,13 @@
     v-if="relatedProducts.length > 0"
   >
     <div class="container-xxl">
-      <h3 class="my-3 text-center">Productos relacionados</h3>
+      <h3 class="mt-3 text-center">Productos relacionados</h3>
       <div class="row d-flex justify-content-center">
         <AppProduct
           v-for="product in relatedProducts"
           :key="product.id"
           :product="product"
-          @addToCart="updateCart"
+          @updateCart="updateCart"
         />
       </div>
     </div>
@@ -165,7 +164,7 @@
 </template>
 
 <script>
-import { cartMixin, productMixin } from "../mixin.js";
+import { cartMixin, apiMixin } from "../mixin.js";
 import AppNavbar from "../components/Navbar.vue";
 import AppFooter from "../components/Footer.vue";
 import AppProduct from "../components/Product.vue";
@@ -176,9 +175,11 @@ export default {
     AppFooter,
     AppProduct,
   },
-  mixins: [cartMixin, productMixin],
+  emits: ["updateCart"],
+  mixins: [cartMixin, apiMixin],
   data() {
     return {
+      pageTitle: "",
       product: {},
       products: [],
       cartCount: 0,
@@ -188,13 +189,19 @@ export default {
       selectedSizeIndex: 0,
       zoomStyle: null,
       relatedProducts: [],
+      selectedCategories: [],
+      totalCartPrice: 0,
     };
   },
   mounted() {
     // busco el producto por id
     this.fetchProduct(this.productId);
+
   },
   methods: {
+    urlFriendlyName(name) {
+      return name.replace(/\s+/g, "-").toLowerCase();
+    },
     selectSize(index) {
       this.selectedSizeIndex = index; // Actualizar el índice del tamaño seleccionado
     },
@@ -232,23 +239,16 @@ export default {
       const x = event.clientX - imageRect.left;
       const y = event.clientY - imageRect.top;
 
-      // Calcular el porcentaje de la posición del mouse con respecto a la imagen
-      const xPercent = (x / imageRect.width) * 100;
-      const yPercent = (y / imageRect.height) * 100;
-
-      // Calcular el porcentaje de la posición del mouse con respecto a la imagen
-      const xZoomPercent = xPercent - 50;
-      const yZoomPercent = yPercent - 50;
-
-      // Calcular el porcentaje de desplazamiento de la imagen
-      const xZoom = (xZoomPercent * imageRect.width) / 100;
-      const yZoom = (yZoomPercent * imageRect.height) / 100;
+      // Calcular el desplazamiento de la imagen invirtiendo la dirección
+      const xZoom = -0.5 * (x - imageRect.width / 2);
+      const yZoom = -0.5 * (y - imageRect.height / 2);
 
       // Aplicar el efecto de zoom
       this.zoomStyle = {
-        transform: `translate(${xZoom}px, ${yZoom}px) scale(1.5)`,
+        transform: `translate(${xZoom}px, ${yZoom}px) scale(1.8)`,
+        // transition time
+        transition: "transform 0s",
       };
-
     },
 
     resetZoom() {
@@ -285,19 +285,19 @@ export default {
   padding: 5px 0;
   letter-spacing: 2px;
 }
-.imagenes-container {
+.images-container {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.imagen-grande-container {
+.big-image-container {
   overflow: hidden;
 }
-.imagenes-container img {
+.images-container img {
   width: 100%;
   height: auto;
 }
-.imagenes-chicas-container img {
+.images-small-container img {
   width: 80px;
   height: auto;
   padding: 5px;
@@ -306,10 +306,10 @@ export default {
   border: 1px solid #5f5f5f;
   opacity: 1;
 }
-.imagenes-chicas-container img:hover {
+.images-small-container img:hover {
   border: 1px solid #000;
 }
-.imagen-chica-selected {
+.image-small-selected {
   opacity: 0.8 !important;
 }
 .product-size {
@@ -325,7 +325,7 @@ export default {
   background-color: #000;
   color: #fff;
 }
-.btn-agregar {
+.btn-add {
   width: 70%;
   height: 50px;
   background-color: #ffffff;
@@ -338,7 +338,7 @@ export default {
   border: 1px solid #000;
   letter-spacing: 2px;
 }
-.btn-agregar:hover {
+.btn-add:hover {
   background-color: #000000;
   color: #ffffff;
   border: 1px solid #000;
@@ -355,7 +355,7 @@ export default {
   .related-products h3 {
     font-size: 2rem;
   }
-  .btn-agregar {
+  .btn-add {
     font-size: 1rem;
   }
 }
