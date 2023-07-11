@@ -4,6 +4,7 @@ import AppAbout from '../views/About.vue'
 import AppContact from '../views/Contact.vue'
 import AppProducts from '../views/Products.vue'
 import AppProductDetails from '../views/ProductDetails.vue'
+import AppLogin from '../views/Login.vue'
 
 const routes = [
 
@@ -11,6 +12,11 @@ const routes = [
     path: '/',
     name: 'AppHome',
     component: AppHome
+  },
+  {
+    path: '/login',
+    name: 'AppLogin',
+    component: AppLogin
   },
   {
     path: '/about',
@@ -21,21 +27,21 @@ const routes = [
     path: '/contact',
     name: 'AppContact',
     component: AppContact
-  },
+  },  
   {
     path: '/products',
     name: 'AppProducts',
     component: AppProducts
   },
   {
-    path: '/products/:id',
+    path: '/product/:id',
     name: 'AppProductDetails',
     component: AppProductDetails
   },
   {
     path: '/:catchAll(.*)',
     redirect: '/'
-    // este es un catch all, si no encuentra la ruta, redirige a la home
+    // este es un catch all, si no encuentra la ruta, redirige a la home    
   }
 ]
 
