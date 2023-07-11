@@ -5,29 +5,57 @@
     <div
       class="row container-fluid d-flex flex-column w-100 justify-content-center ps-0 pe-0"
     >
-      <div class="col-12 col-md-12 row d-flex justify-content-between p-0 mb-0">
+      <div class="col-12 row d-flex justify-content-between p-0 mb-0">
         <div
-          class="col-12 col-md-6 p-0 text-center text-md-start logo"
-          :class="{ 'scrolled-nav': isScrolled }"
+          class="col-12 col-md-4 order-2 order-md-1 d-md-flex d-none align-items-end mb-2 justify-content-md-start justify-content-center mt-2 mt-md-0"
         >
-          <div>
-            <a href="/">
-              <img
-                src="../assets/logo.png"
-                class="logo"
-                alt="logo"
-                width="120"
-                :class="{ 'scrolled-logo': isScrolled }"
+          <!-- search -->
+          <div class="justify-content-end align-items-center d-flex">
+            <div class="input-group">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Buscar"
+                aria-label="Recipient's username"
+                aria-describedby="button-addon2"
+                style="border-radius: 5px 0px 0px 5px"
               />
-            </a>
+              <button
+                class="btn btn-outline-secondary"
+                type="button"
+                id="button-addon2"
+                style="border-radius: 0px 5px 5px 0px"
+              >
+                <img
+                  src="../assets/icons/search.svg"
+                  alt="search icon"
+                  width="15"
+                  height="15"
+                />
+              </button>
+            </div>
           </div>
         </div>
         <div
-          class="col-12 col-md-6 order-2 order-md-1 align-items-center d-flex justify-content-md-end justify-content-end pb-md-0 p-2 pt-md-2 mt-md-5"
+          class="col-12 col-md-4 d-flex justify-content-center order-1 order-md-2 my-1"
+          :class="{ 'scrolled-nav': isScrolled }"
         >
-          <div class="boton-colapse pt-3" style="width: 20%">
+          <a href="/">
+            <img
+              src="../assets/logo.png"
+              class="logo hover:opacity-75 transition ease-in-out duration-150"
+              alt="logo"
+              width="110"
+              :class="{ 'scrolled-logo': isScrolled }"
+            />
+          </a>
+        </div>
+        <div
+          class="col-12 col-md-4 order-3 order-md-3 d-flex justify-content-center align-items-end my-2"
+        >
+          <div class="btn-collapse">
             <button
-              class="navbar-toggler ms-3 mb-3"
+              class="navbar-toggler"
               type="button"
               data-bs-toggle="collapse"
               data-bs-target="#navbarNavDropdown"
@@ -39,33 +67,18 @@
             </button>
           </div>
           <div class="d-flex justify-content-end align-items-center w-100">
-            <!-- search -->
-            <div class="d-flex justify-content-end align-items-center me-md-3">
-              <div class="input-group">
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Buscar"
-                  aria-label="Recipient's username"
-                  aria-describedby="button-addon2"
-                  style="border-radius: 0"
-                />
-                <button
-                  class="btn btn-outline-secondary"
-                  type="button"
-                  id="button-addon2"
-                  style="border-radius: 0"
-                >
-                  <img
-                    src="../assets/icons/search.svg"
-                    alt="search icon"
-                    width="15"
-                    height="15"
-                  />
-                </button>
-              </div>
-            </div>
-
+            <a href="/login" class="text-black me-1 pe-2">
+              <img
+                src="../assets/icons/user.svg"
+                alt="logo"
+                width="25"
+                height="25"
+              />
+              <span class="ps-1" style="font-family: 'Bebas neue', cursive"
+                >cuenta</span
+              >
+            </a>
+            /
             <button
               @click="showOrHideCart()"
               class="text-dark ms-2"
@@ -77,7 +90,7 @@
                 width="25"
                 height="25"
               />
-              <span class="pt-2" id="cartCount">({{ cartCount }})</span>
+              <span class="pt-0" id="cartCount">({{ cartCount }})</span>
             </button>
           </div>
         </div>
@@ -86,7 +99,7 @@
       <div class="col-12 col-md-12 p-0 w-100 order-1 order-md-2">
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
           <ul
-            class="navbar-nav w-100 d-flex justify-content-center ms-auto"
+            class="navbar-nav w-100 d-flex justify-content-center"
             :class="{ 'scrolled-nav': isScrolled }"
             style="background-color: #000; color: #fff"
           >
@@ -97,10 +110,7 @@
             <li class="nav-item dropdown">
               <a
                 class="nav-link nav-link-products"
-                href="/products"
-                id="navbarDropdownMenuLink"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
+                style="cursor: pointer"
                 @mouseover="showDropdown"
                 @mouseout="hideDropdown"
                 @click="redirectProducts"
@@ -111,39 +121,102 @@
                 class="dropdown-menu"
                 aria-labelledby="navbarDropdownMenuLink"
                 :class="{ show: isDropdownVisible }"
-                @mouseover="showDropdown" @mouseout="hideDropdown"
+                @mouseover="showDropdown"
+                @mouseout="hideDropdown"
               >
                 <li>
-                  <a class="dropdown-item" href="/products/indumentaria"
-                    >indumentaria</a
+                  <a
+                    class="dropdown-item"
+                    href="/products?categories=buzos&sort_by=created_at&page=1"
                   >
+                    Buzos
+                  </a>
                 </li>
                 <li>
-                  <a class="dropdown-item" href="/products/tablas">tablas</a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="/products/ruedas">ruedas</a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="/products/trucks">trucks</a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="/products/rulemanes"
-                    >rulemanes</a
+                  <a
+                    class="dropdown-item"
+                    href="/products?categories=tablas&sort_by=created_at&page=1"
                   >
+                    tablas
+                  </a>
                 </li>
                 <li>
-                  <a class="dropdown-item" href="/products/accesorios"
-                    >accesorios</a
+                  <a
+                    class="dropdown-item"
+                    href="/products?categories=trucks&sort_by=created_at&page=1"
                   >
+                    trucks
+                  </a>
                 </li>
                 <li>
-                  <a class="dropdown-item" href="/products">ver todos</a>
+                  <a
+                    class="dropdown-item"
+                    href="/products?categories=ruedas&sort_by=created_at&page=1"
+                  >
+                    ruedas
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="/products?categories=rulemanes&sort_by=created_at&page=1"
+                  >
+                    rulemanes
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="/products?categories=accesorios&sort_by=created_at&page=1"
+                  >
+                    accesorios
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="/products?categories=all&sort_by=created_at&page=1"
+                  >
+                    ver todos
+                  </a>
                 </li>
               </ul>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">contacto</a>
+            </li>
+            <li
+              class="nav-item d-flex d-md-none justify-content-center bg-white py-4"
+            >
+              <!-- search -->
+              <div
+                class="justify-content-end align-items-center me-md-3 d-flex"
+                style="width: 100%; max-width: 300px"
+              >
+                <div class="input-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Buscar"
+                    aria-label="Recipient's username"
+                    aria-describedby="button-addon2"
+                    style="border-radius: 0"
+                  />
+                  <button
+                    class="btn btn-outline-secondary"
+                    type="button"
+                    id="button-addon2"
+                    style="border-radius: 0"
+                  >
+                    <img
+                      src="../assets/icons/search.svg"
+                      alt="search icon"
+                      width="15"
+                      height="15"
+                    />
+                  </button>
+                </div>
+              </div>
             </li>
           </ul>
         </div>
@@ -192,7 +265,7 @@
         v-for="product in productsOnCart"
         :key="product.id"
         :product="product"
-        @update-cart="updateCart"
+        @updateCart="updateCart"
       />
       <div
         class="d-flex row px-0 justify-content-center d-flex align-items-center"
@@ -231,28 +304,21 @@ export default {
   components: {
     AppProductOnCart,
   },
+  emits: ["updateCart"],
   props: {
     cartCount: {
       type: Number,
-      required: true,
+      default: 0,
     },
     productsOnCart: {
       type: Array,
-      required: true,
-    },
-    products: {
-      type: Array,
-      required: true,
-    },
-    totalCartPrice: {
-      type: Number,
-      required: true,
+      default: () => [],
     },
   },
   data() {
     return {
       isScrolled: false,
-      total: 0,
+      totalCartPrice: 0,
       showCart: false,
       isDropdownVisible: false,
     };
@@ -265,26 +331,41 @@ export default {
   },
   methods: {
     handleScroll() {
-      this.isScrolled = window.scrollY > 0;
+      this.isScrolled = window.scrollY > 50;
     },
 
-    updateCart() {
-      this.$emit("updateCart");
-    },
     showOrHideCart() {
       this.showCart = !this.showCart;
     },
-
     showDropdown() {
       this.isDropdownVisible = true;
     },
     hideDropdown() {
       this.isDropdownVisible = false;
     },
+    goToProductsCategory(category) {
+      this.fetchProductsCategory(category, this.sort_by);
+    },
     redirectProducts() {
-      this.$router.push("/products");
+      this.$router.push("/products?categories=all&sort_by=created_at");
+    },
+    getTotalCartPrice() {
+      let total = 0;
+      this.productsOnCart.forEach((product) => {
+        total += product.price;
+      });
+      return total;
+    },
+    updateCart() {
+      this.$emit("updateCart");
     },
   },
+
+  watch: {
+    productsOnCart() {
+      this.totalCartPrice = this.getTotalCartPrice();
+    },
+  }  
 };
 </script>
 
@@ -369,16 +450,12 @@ export default {
   padding-top: 20px;
   animation: moveText 25s linear infinite;
 }
-.logo {
-  position: relative;
-  top: 0;
-  left: 31%;
-}
-.scrolled-logo {
-  margin-top: 0px;
-  width: 80px;
-  left: 32%;
-  top: 0.1em;
+.btn-collapse {
+  /* boton de hamburguesa */
+  border: none;
+  background-color: transparent;
+  color: #000000;
+  font-size: 1rem;
   transition: 0.5s;
 }
 .navbar {
@@ -390,12 +467,10 @@ export default {
 }
 .nav-item {
   color: #ffffff;
-  /* margin-left: 10px; */
   letter-spacing: 0.05rem;
 }
 .nav-link {
   color: #ffffff;
-  padding: 8px 15px 8px 15px;
   transition: 0.5s;
   border-bottom: 3px solid transparent;
   font-family: "Bebas Neue", sans-serif;
@@ -403,22 +478,28 @@ export default {
   letter-spacing: 0.05rem;
 }
 .nav-link:hover {
-  text-decoration: line-through 3px #565656;
-  color: #c4c4c4;
+  color: #878585;
+  background-color: #000000;
+  border-bottom: 3px solid #878585;
 }
+
 .link-text:hover {
   color: #878585;
   background-color: #000000;
 }
 .scrolled-nav {
-  margin-top: 5px;
+  margin: 0;
   padding: 0;
-  transition: 1s;
+  transition: 0.4s;
+}
+.scrolled-logo {
+  width: 75px;
+  transition: 0.4s;
 }
 .dropdown-menu {
   background-color: #000000;
   border: 1px solid #494949;
-  border-radius: .3rem;
+  border-radius: 0.3rem;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
   width: 100% !important;
 }
@@ -455,19 +536,14 @@ export default {
 
 @media (max-width: 768px) {
   .logo {
-    position: relative;
-    top: 0em;
-    left: 35%;
-    width: 80px;
-    height: 80px;
+    width: 85px;
+    margin: 0 !important;
   }
   .scrolled-logo {
-    margin-top: 0px;
-    width: 80px;
-    left: 34%;
-    top: 0em;
-    transition: 0.5s;
+    width: 65px;
+    transition: 0.4s;
   }
+
   .cart-items {
     width: 100%;
   }
@@ -477,6 +553,7 @@ export default {
     background-color: #fff;
     color: #000;
     text-align: center;
+    font-size: 1.5rem;
   }
   .nav-link-products {
     border-bottom: none;
